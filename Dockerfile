@@ -23,5 +23,5 @@ RUN mkdir -p /app/uploads /app/split_uploaded
 EXPOSE 80
 
 # Run your Flask app
-CMD ["gunicorn", "-b", "0.0.0.0:80", "run:app"]
+CMD ["flask", "run", "--host=0.0.0.0", "--port=80"]
 
