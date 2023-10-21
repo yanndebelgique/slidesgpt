@@ -1,0 +1,10 @@
+version: '3'
+services:
+  my_app:
+    image: gptslides 
+    volumes:
+      - uploads_volume:/path/in/container/uploads
+      - split_uploads_volume:/path/in/container/split_uploads
+volumes:
+  uploads_volume:
+  split_uploads_volume:
