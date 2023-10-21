@@ -1,4 +1,5 @@
 import re
+from threading import Thread
 import glob
 from flask import send_from_directory
 from pdf2image import convert_from_path
@@ -53,7 +54,7 @@ def upload_file():
         if file and allowed_file(file.filename):
             filename = os.path.join(UPLOAD_FOLDER, file.filename)
             file.save(filename)
-            convert_pdf_to_jpeg(filename)
+            Thread(target=convert_pdf_to_jpeg, args=(filename,)).start()
             print('file saved')
             return redirect(url_for('main.index'))
 

@@ -10,8 +10,11 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '0.50'
-          memory: 500m  
+          cpus: '0.25'
+          memory: 200m
+        reservations:
+          memory: 100m
+
 volumes:
   uploads_volume:
   split_uploads_volume:
