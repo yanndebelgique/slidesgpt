@@ -1,2 +1,4 @@
 venv/
 uploads/*
+split_uploads/*
+app/__pycache__/*

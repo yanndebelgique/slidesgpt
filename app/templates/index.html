@@ -1,12 +1,9 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Home</title>
-    <link href="/static/css/main.css" rel="stylesheet">
-</head>
-<body>
-    <h1>Welcome</h1>
-    <a href="/upload">Upload a PDF</a>
-</body>
-</html>
+{% extends "base.html" %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+    <h1 class="text-4xl font-bold mb-8">Welcome</h1>
+    <a href="/upload" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Upload a PDF</a>
+    <a href="/pdfs" class="bg-white-500 hover:bg-white-700 border rounded font-bold py-2 px-4 rounded">Uploaded PDFs</a>
+{% endblock %}

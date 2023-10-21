@@ -1,15 +1,18 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Upload PDF</title>
-    <link href="/static/css/main.css" rel="stylesheet">
-</head>
-<body>
-    <h1>Upload a PDF</h1>
+{% extends "base.html" %}
+
+{% block title %}Upload a PDF{% endblock %}
+
+{% block content %}
+    <h1 class="text-2xl font-bold mb-4">Upload a PDF</h1>
     <form action="/upload" method="post" enctype="multipart/form-data">
-        <input type="file" name="file">
-        <input type="submit" value="Upload">
+        <div class="mb-4">
+            <label class="block text-gray-700 font-bold mb-2" for="file">
+                Choose a PDF file to upload
+            </label>
+            <input type="file" name="file" id="file" class="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+        </div>
+        <div class="flex items-center justify-between">
+            <input type="submit" value="Upload" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+        </div>
     </form>
-</body>
-</html>
+{% endblock %}

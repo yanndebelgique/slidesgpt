@@ -1,3 +1,4 @@
+import re
 import glob
 from flask import send_from_directory
 from pdf2image import convert_from_path
@@ -84,8 +85,15 @@ def split_view_pdf(pdf_name):
     pdf_name = pdf_name[:-4] if pdf_name.endswith('.pdf') else pdf_name
     img_folder = os.path.join('split_uploads', pdf_name)
     img_files = glob.glob(f"{img_folder}/*.jpeg")
-    print(img_files)
+
+    # Updated sorting logic
+    def sort_key(filename):
+        page_number = re.search(r'_page_(\d+)', filename)
+        return int(page_number.group(1)) if page_number else 0
+
+    img_files = sorted(img_files, key=sort_key)
     img_files = [os.path.basename(img) for img in img_files]
+
     return render_template('show_images.html', img_files=img_files, folder=img_folder)
 
 

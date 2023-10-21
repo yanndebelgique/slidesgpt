@@ -1,22 +1,18 @@
 <!-- FILEPATH: /Users/yannbuydens/p/slides_explainer/app/templates/pdfs.html -->
 
-<!DOCTYPE html>
-<html>
-<head>
-    <title>List of PDFs</title>
-</head>
-<body>
-    <h1>List of PDFs</h1>
+{% extends "base.html" %}
 
+{% block title %}PDFs{% endblock %}
+
+{% block content %}
+    <h1 class="text-3xl font-bold mb-4">PDFs</h1>
     {% if pdfs %}
-        <h2>Available PDFs:</h2>
-        <ul>
+        <ul class="list-disc pl-4">
             {% for pdf in pdfs %}
-                <li><a href="pdfs/{{ pdf }}/view">{{ pdf }}</a></li>
+                <li><a href="pdfs/{{ pdf }}/split" class="text-blue-500 hover:underline">{{ pdf }}</a></li>
             {% endfor %}
         </ul>
     {% else %}
         <p>No PDFs available.</p>
     {% endif %}
-</body>
-</html>
+{% endblock %}
