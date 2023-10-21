@@ -1,0 +1,22 @@
+<!-- FILEPATH: /Users/yannbuydens/p/slides_explainer/app/templates/pdfs.html -->
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>List of PDFs</title>
+</head>
+<body>
+    <h1>List of PDFs</h1>
+
+    {% if pdfs %}
+        <h2>Available PDFs:</h2>
+        <ul>
+            {% for pdf in pdfs %}
+                <li><a href="pdfs/{{ pdf }}">{{ pdf }}</a></li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No PDFs available.</p>
+    {% endif %}
+</body>
+</html>

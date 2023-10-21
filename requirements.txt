@@ -1,0 +1,3 @@
+Flask==x.x.x
+pdf2image==x.x.x
+Pillow==x.x.x
