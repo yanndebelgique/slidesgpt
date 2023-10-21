@@ -1,4 +1,4 @@
-version: '3'
+version: '3.2'
 services:
   my_app:
     image: gptslides 
@@ -7,6 +7,11 @@ services:
       - split_uploads_volume:/path/in/container/split_uploads
     ports:
       - "80:80"
+    deploy:
+      resources:
+        limits:
+          cpus: '0.50'
+          memory: 500m  
 volumes:
   uploads_volume:
   split_uploads_volume:
