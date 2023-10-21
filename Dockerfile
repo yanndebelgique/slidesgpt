@@ -1,6 +1,9 @@
 # Use an official Python runtime as a parent image
 FROM python:3.9-slim
 
+# Install Poppler utilities
+RUN apt-get update && apt-get install -y poppler-utils
+
 # Working directory inside the container
 WORKDIR /app
 
