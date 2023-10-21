@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>PDF Slides</title>
+</head>
+<body>
+    <h1>Slides for {{ folder }}</h1>
+    <ul>
+        {% for img in img_files %}
+            <li>
+                <img src="/{{folder}}/{{img}}" alt="{{ img }}" width="400" height="400">
+            </li>
+        {% endfor %}
+    </ul>
+</body>
+</html>

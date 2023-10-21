@@ -1,5 +1,12 @@
+import glob
+from flask import send_from_directory
+from pdf2image import convert_from_path
 from flask import Blueprint, render_template, request, redirect, url_for
+from PyPDF2 import PdfReader
+from PIL import Image
 import os
+import io
+
 
 main = Blueprint('main', __name__)
 
@@ -45,12 +52,46 @@ def upload_file():
         if file and allowed_file(file.filename):
             filename = os.path.join(UPLOAD_FOLDER, file.filename)
             file.save(filename)
+            convert_pdf_to_jpeg(filename)
             print('file saved')
             return redirect(url_for('main.index'))
 
     return render_template('upload.html')
 
 
-@main.route('/pdfs/<pdf_name>')
-def hello_pdf(pdf_name):
-    return f'hello {pdf_name}'
+def convert_pdf_to_jpeg(pdf_path):
+    images = convert_from_path(pdf_path)
+    pdf_name = os.path.basename(pdf_path).split('.')[0]
+    output_folder = os.path.join('split_uploads', pdf_name)
+
+    if not os.path.exists(output_folder):
+        os.makedirs(output_folder)
+
+    for i, image in enumerate(images):
+        jpeg_path = os.path.join(
+            output_folder, f"{pdf_name}_page_{i + 1}.jpeg")
+        image.save(jpeg_path, 'JPEG')
+
+
+@main.route('/pdfs/<pdf_name>/view')
+def pdf_name_view(pdf_name):
+    print('pdf_name', pdf_name)
+    return send_from_directory('../' + UPLOAD_FOLDER, pdf_name)
+
+
+@main.route('/pdfs/<pdf_name>/split')
+def split_view_pdf(pdf_name):
+    pdf_name = pdf_name[:-4] if pdf_name.endswith('.pdf') else pdf_name
+    img_folder = os.path.join('split_uploads', pdf_name)
+    img_files = glob.glob(f"{img_folder}/*.jpeg")
+    print(img_files)
+    img_files = [os.path.basename(img) for img in img_files]
+    return render_template('show_images.html', img_files=img_files, folder=img_folder)
+
+
+@main.route('/split_uploads/<pdf_name>/<img_name>')
+def serve_image(pdf_name, img_name):
+    pdf_name = pdf_name[:-4] if pdf_name.endswith('.pdf') else pdf_name
+    print('dddddd', pdf_name)
+    print('image', img_name)
+    return send_from_directory(os.path.join('..', 'split_uploads', pdf_name), img_name)
