@@ -5,6 +5,8 @@ services:
     volumes:
       - uploads_volume:/path/in/container/uploads
       - split_uploads_volume:/path/in/container/split_uploads
+    ports:
+      - "80:80"
 volumes:
   uploads_volume:
   split_uploads_volume:
